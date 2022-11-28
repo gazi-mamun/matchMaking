@@ -1,0 +1,15 @@
+{
+  "name": "match-making",
+  "version": "1.0.0",
+  "description": "",
+  "main": "matchMaking.js",
+  "scripts": {
+    "test": "mocha || true"
+  },
+  "author": "Gazi Assadujjaman Mamun",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.1.0"
+  }
+}

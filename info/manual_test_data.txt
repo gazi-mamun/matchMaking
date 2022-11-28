@@ -1,0 +1,44 @@
+
+------------------------------------------------------------
+
+YOU CAN PASTE THE CODE BELOW AND TEST THE MODULE MANUALLY 
+------------------------------------------------------------
+
+//------------------------
+// CREATING PLAYERS FOR MANUAL TEST
+//------------------------
+const player1 = new Player("mamun", 1000);
+const player2 = new Player("salam", 3000);
+const player3 = new Player("babu", 1050);
+const player4 = new Player("rafi", 3100);
+const player5 = new Player("apurbo", 900);
+const player6 = new Player("sarowar", 2000);
+const player7 = new Player("jobbar", 925);
+const player8 = new Player("arfin", 1000);
+const player9 = new Player("gittu", 1000);
+const player10 = new Player("ifty", 930);
+const player11 = new Player("siddique", 1010);
+const player12 = new Player("parvez", 925);
+const player13 = new Player("raihan", 1000);
+
+//------------------------
+// ADD PLAYER IN THE QUEUE THAN AUTOMATICALLY TO A MATCH
+//------------------------
+newQueue.addToMatch(player1);
+newQueue.addToMatch(player2);
+newQueue.addToMatch(player3);
+newQueue.addToMatch(player4);
+newQueue.addToMatch(player5);
+newQueue.addToMatch(player6);
+newQueue.addToMatch(player7);
+newQueue.addToMatch(player8);
+newQueue.addToMatch(player9);
+newQueue.addToMatch(player10);
+newQueue.addToMatch(player11);
+newQueue.addToMatch(player12);
+newQueue.addToMatch(player13);
+// newQueue.removeFromMatch(player5)
+
+// ...........................
+console.log(newQueue);
+console.log(playingMatches);
