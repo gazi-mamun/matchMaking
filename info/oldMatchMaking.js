@@ -32,6 +32,8 @@ class Match {
   // ADD PLAYER TO MATCH METHOD
   addPlayer(player, enteredMatchId) {
     if (this.teamA.length >= 5 && this.teamB.length >= 5) return false;
+    let teamAEloAvg;
+    let teamBEloAvg;
     let lowElo;
     let highElo;
 
@@ -40,6 +42,7 @@ class Match {
     if (this.teamA.length > 0) {
       lowElo = this.teamA[0].elo;
       highElo = this.teamA[0].elo;
+      let teamAEloSum = 0;
       // GETTING LOW ELO AND HIGH ELO
       this.teamA.map((p) => {
         if (p.elo < lowElo) {
@@ -48,8 +51,10 @@ class Match {
         if (p.elo > highElo) {
           highElo = p.elo;
         }
-        return NaN;
+        return (teamAEloSum += p.elo);
       });
+      // CALCULATING AVERAGE OF TEAM-A
+      teamAEloAvg = teamAEloSum / this.teamA.length;
     }
     // IF TEAM-A IS LESS THAN 5
     if (this.teamA.length < 5) {
@@ -99,21 +104,22 @@ class Match {
         player.enteredMatchId = this.teamA[0].enteredMatchId;
         return true;
       } else {
+        let teamBEloSum = 0;
         this.teamB.map((p) => {
-          return NaN;
+          return (teamBEloSum += p.elo);
         });
-
-        this.teamB.push(player);
-        player.enteredMatchId = this.teamA[0].enteredMatchId;
-        // IF TEAM-B IS FULL WHICH MEANS 10 PALYER ADDED IN THE MATCH. NOW REMOVE THE MATCH FROM GAME QUEUE
-        if (this.teamB.length === 5) {
-          const allPlayer = this.teamA.concat(this.teamB);
-          const dividedTeam = greedyPartitioning(allPlayer, 2);
-          this.teamA = dividedTeam[0];
-          this.teamB = dividedTeam[1];
-          removeMatchFromQueue(this);
+        // CALCULATING AVERAGE OF TEAM-A
+        teamBEloAvg = (teamBEloSum + player.elo) / (this.teamB.length + 1);
+        // CHECK FOR TEAM AVERAGE DIFFERENCE. IF DIFFERENCE IS LESS THAN 50 PUSH THE PLAYER IN THE MATCH OR DONT PUSH
+        if (Math.abs(teamAEloAvg - teamBEloAvg) <= 50) {
+          this.teamB.push(player);
+          player.enteredMatchId = this.teamA[0].enteredMatchId;
+          // IF TEAM-B IS FULL WHICH MEANS 10 PALYER ADDED IN THE MATCH. NOW REMOVE THE MATCH FROM GAME QUEUE
+          if (this.teamB.length === 5) {
+            removeMatchFromQueue(this);
+          }
+          return true;
         }
-        return true;
       }
     }
   }
@@ -215,28 +221,6 @@ function removeMatchFromQueue(match) {
   let matches = newQueue.matches.filter((m) => m.matchId !== match.matchId);
   newQueue.matches = matches;
   playingMatches.push(match);
-}
-
-//------------------------
-// FUNCTION TO DIVIDE A ARRAY INTO TWO SUB-ARRAY SUCH THAT DIFFERENCE OF THEIR ELEMENTS SUM IS MINIMUM
-//------------------------
-function greedyPartitioning(array, numberOfSubsets) {
-  const sorted = array.sort((a, b) => b.elo - a.elo); // sort descending
-
-  const out = [...Array(numberOfSubsets)].map((x) => {
-    return {
-      sum: 0,
-      elements: [],
-    };
-  });
-
-  for (const elem of sorted) {
-    const chosenSubset = out.sort((a, b) => a.sum - b.sum)[0];
-    chosenSubset.elements.push(elem);
-    chosenSubset.sum += elem.elo;
-  }
-
-  return out.map((subset) => subset.elements);
 }
 
 module.exports = {

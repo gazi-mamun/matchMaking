@@ -41,18 +41,18 @@ describe("A full match creation", () => {
     matchId: enteredMatchId,
     teamA: [
       {
-        id: "mamun",
-        elo: 1000,
-        enteredMatchId: enteredMatchId,
-      },
-      {
         id: "babu",
         elo: 1050,
         enteredMatchId: enteredMatchId,
       },
       {
-        id: "apurbo",
-        elo: 900,
+        id: "arfin",
+        elo: 1000,
+        enteredMatchId: enteredMatchId,
+      },
+      {
+        id: "raihan",
+        elo: 1000,
         enteredMatchId: enteredMatchId,
       },
       {
@@ -61,12 +61,22 @@ describe("A full match creation", () => {
         enteredMatchId: enteredMatchId,
       },
       {
-        id: "arfin",
-        elo: 1000,
+        id: "apurbo",
+        elo: 900,
         enteredMatchId: enteredMatchId,
       },
     ],
     teamB: [
+      {
+        id: "siddique",
+        elo: 1010,
+        enteredMatchId: enteredMatchId,
+      },
+      {
+        id: "mamun",
+        elo: 1000,
+        enteredMatchId: enteredMatchId,
+      },
       {
         id: "gittu",
         elo: 1000,
@@ -78,18 +88,8 @@ describe("A full match creation", () => {
         enteredMatchId: enteredMatchId,
       },
       {
-        id: "siddique",
-        elo: 1010,
-        enteredMatchId: enteredMatchId,
-      },
-      {
         id: "parvez",
         elo: 925,
-        enteredMatchId: enteredMatchId,
-      },
-      {
-        id: "raihan",
-        elo: 1000,
         enteredMatchId: enteredMatchId,
       },
     ],
@@ -102,7 +102,7 @@ describe("A full match creation", () => {
     assert.deepEqual(matchMaking.playingMatches, [match]);
   });
 
-  it("where elo difference between players can not be more than 150 and average elo between two teams can not be more than 50", () => {
+  it("where elo difference between players can not be more than 150 and the difference of elo average between two teams should as low as possible which is 10 in this test case", () => {
     // CHECKING HIGHEST ELO DIFFERENCE BETWEEN PLAYERS OF A SINGLE MATCH
 
     let teamATotalElo = 0;
@@ -139,7 +139,7 @@ describe("A full match creation", () => {
 
     assert.isBelow(teamADiff, 151);
     assert.isBelow(teamBDiff, 151);
-    assert.isBelow(eloAvgDiff, 51);
+    assert.isBelow(eloAvgDiff, 11);
   });
 });
 
